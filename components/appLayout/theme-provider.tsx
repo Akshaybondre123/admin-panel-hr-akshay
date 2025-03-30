@@ -7,5 +7,15 @@ import {
 } from 'next-themes'
 
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
-  return <NextThemesProvider {...props}>{children}</NextThemesProvider>
+  return (
+    <NextThemesProvider
+      {...props}
+      storageKey="extranet-theme"
+      enableSystem={false}
+      disableTransitionOnChange
+      enableColorScheme={false}
+    >
+      {children}
+    </NextThemesProvider>
+  )
 }

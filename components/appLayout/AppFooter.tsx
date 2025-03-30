@@ -1,3 +1,4 @@
+// footer.tsx
 export default function Footer() {
   return (
     <footer className="border-t py-3 text-left text-xs text-muted-foreground">

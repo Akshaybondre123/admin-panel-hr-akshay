@@ -7,9 +7,10 @@ import { Badge } from "@/components/ui/badge"
 
 interface TopNavProps {
   onMenuClick: () => void
+  title?: string // Only added this new prop
 }
 
-export default function TopNav({ onMenuClick }: TopNavProps) {
+export default function TopNav({ onMenuClick, title = "Dashboard" }: TopNavProps) { // Added title prop with default
   return (
     <header className="flex h-14 items-center gap-4 border-b bg-white px-4 lg:h-[60px]">
       <Button variant="ghost" size="icon" className="md:hidden" onClick={onMenuClick}>
@@ -17,10 +18,10 @@ export default function TopNav({ onMenuClick }: TopNavProps) {
         <span className="sr-only">Toggle menu</span>
       </Button>
       
-      {/* Left arrow and Dashboard title */}
+      {/* Left arrow and Dashboard title - only changed the hardcoded text to use the title prop */}
       <div className="hidden items-center gap-2 md:flex">
         <ChevronLeft className="h-5 w-5 text-gray-900" />
-        <h1 className="text-lg font-semibold text-gray-900">Dashboard</h1>
+        <h1 className="text-lg font-semibold text-gray-900">{title}</h1> {/* Changed here */}
       </div>
 
       <div className="ml-auto flex items-center gap-4">

@@ -42,6 +42,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import AppHeader from "@/components/appLayout/AppHeader"
 import SideBar from "@/components/appLayout/AppSidebar"
+import { EmployeeModal } from "@/components/appLayout/EmployeeModel"
 
 type TeamMember = {
   name: string
@@ -770,242 +771,224 @@ export default function EmployeeDetailView({ employee }: EmployeeDetailProps) {
         </div>
   
         {/* Profile Edit Modal */}
-        <Dialog open={profileModalOpen} onOpenChange={setProfileModalOpen}>
-        <DialogContent className="sm:max-w-[500px]">
-          <DialogHeader>
-            <DialogTitle>Profile</DialogTitle>
-            <DialogDescription>Edit employee profile information</DialogDescription>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="flex flex-col items-center gap-2 mb-2">
-              <Avatar className="h-24 w-24">
-                <AvatarImage src={employee.avatar} alt={employee.name} />
-                <AvatarFallback>{employee.name.charAt(0)}</AvatarFallback>
-              </Avatar>
-              <Button variant="outline" size="sm" className="gap-2">
-                <Upload className="h-4 w-4" />
-                Upload Profile Picture
-              </Button>
-            </div>
+        <EmployeeModal
+  title="Profile"
+  isOpen={profileModalOpen}
+  onOpenChange={setProfileModalOpen}
+  showFooter={true}
+  submitLabel="Save Changes"
+  onSubmit={() => alert("Profile Updated!")}
+  size="sm"
+>
+  <div className="grid gap-4 py-4">
+    <div className="flex flex-col items-center gap-2 mb-2">
+      <Avatar className="h-12 w-12">
+        <AvatarImage src={employee.avatar} alt={employee.name} />
+        <AvatarFallback>{employee.name.charAt(0)}</AvatarFallback>
+      </Avatar>
+      <Button variant="outline" size="sm" className="gap-2">
+        <Upload className="h-4 w-4" />
+        Upload Profile Picture
+      </Button>
+    </div>
 
-            <div className="grid grid-cols-1 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="name">Name</Label>
-                <Input id="name" defaultValue={employee.name} />
-              </div>
+    <div className="grid grid-cols-1 gap-4">
+      <div className="space-y-2">
+        <Label htmlFor="name">Name</Label>
+        <Input id="name" defaultValue={employee.name} />
+      </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="employeeId">Employee ID</Label>
-                <Input id="employeeId" defaultValue={employee.employeeId} />
-              </div>
+      <div className="space-y-2">
+        <Label htmlFor="employeeId">Employee ID</Label>
+        <Input id="employeeId" defaultValue={employee.employeeId} />
+      </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="designation">Designation</Label>
-                <Select defaultValue={employee.role}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select designation" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value={employee.role}>{employee.role}</SelectItem>
-                    <SelectItem value="Sales Executive">Sales Executive</SelectItem>
-                    <SelectItem value="Marketing Manager">Marketing Manager</SelectItem>
-                    <SelectItem value="Software Developer">Software Developer</SelectItem>
-                    <SelectItem value="HR Manager">HR Manager</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+      <div className="space-y-2">
+        <Label htmlFor="designation">Designation</Label>
+        <Select defaultValue={employee.role}>
+          <SelectTrigger>
+            <SelectValue placeholder="Select designation" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value={employee.role}>{employee.role}</SelectItem>
+            <SelectItem value="Sales Executive">Sales Executive</SelectItem>
+            <SelectItem value="Marketing Manager">Marketing Manager</SelectItem>
+            <SelectItem value="Software Developer">Software Developer</SelectItem>
+            <SelectItem value="HR Manager">HR Manager</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="userRole">User Role</Label>
-                <Input id="userRole" defaultValue="Employee" />
-              </div>
+      <div className="space-y-2">
+        <Label htmlFor="userRole">User Role</Label>
+        <Input id="userRole" defaultValue="Employee" />
+      </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="punchAt">Punch at</Label>
-                <Input id="punchAt" defaultValue="10:00 AM" />
-              </div>
-            </div>
-          </div>
-          <DialogFooter>
-            <Button type="submit">Submit</Button>
-            <DialogClose asChild>
-              <Button type="button" variant="outline">
-                Cancel
-              </Button>
-            </DialogClose>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <div className="space-y-2">
+        <Label htmlFor="punchAt">Punch at</Label>
+        <Input id="punchAt" defaultValue="10:00 AM" />
+      </div>
+    </div>
+  </div>
+</EmployeeModal>
 
   
         {/* Personal Information Edit Modal */}
-        <Dialog open={personalModalOpen} onOpenChange={setPersonalModalOpen}>
-        <DialogContent className="sm:max-w-[600px]">
-          <DialogHeader>
-            <DialogTitle>Personal Information</DialogTitle>
-            <DialogDescription>Edit employee personal information</DialogDescription>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="mobile">Mobile</Label>
-                <Input id="mobile" defaultValue={employee.mobile.replace("+91 - ", "")} />
-              </div>
+        <EmployeeModal
+  title="Personal Information"
+  isOpen={personalModalOpen}
+  onOpenChange={setPersonalModalOpen}
+  showFooter={true}
+  submitLabel="Save Changes"
+  onSubmit={() => alert("Personal Information Updated!")}
+  size="sm"
+>
+  <div className="grid gap-4 py-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="space-y-2">
+        <Label htmlFor="mobile">Mobile</Label>
+        <Input id="mobile" defaultValue={employee.mobile.replace("+91 - ", "")} />
+      </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="gender">Gender</Label>
-                <Select defaultValue={employee.gender}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select gender" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Male">Male</SelectItem>
-                    <SelectItem value="Female">Female</SelectItem>
-                    <SelectItem value="Other">Other</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+      <div className="space-y-2">
+        <Label htmlFor="gender">Gender</Label>
+        <Select defaultValue={employee.gender}>
+          <SelectTrigger>
+            <SelectValue placeholder="Select gender" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="Male">Male</SelectItem>
+            <SelectItem value="Female">Female</SelectItem>
+            <SelectItem value="Other">Other</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="dateOfBirth">Date of Birth</Label>
-                <Input
-                  id="dateOfBirth"
-                  type="date"
-                  defaultValue={employee.dateOfBirth.split(" ").reverse().join("-")}
-                />
-              </div>
+      <div className="space-y-2">
+        <Label htmlFor="dateOfBirth">Date of Birth</Label>
+        <Input
+          id="dateOfBirth"
+          type="date"
+          defaultValue={employee.dateOfBirth.split(" ").reverse().join("-")}
+        />
+      </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="maritalStatus">Marital Status</Label>
-                <Select defaultValue={employee.maritalStatus}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select marital status" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Single">Single</SelectItem>
-                    <SelectItem value="Married">Married</SelectItem>
-                    <SelectItem value="Divorced">Divorced</SelectItem>
-                    <SelectItem value="Widowed">Widowed</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+      <div className="space-y-2">
+        <Label htmlFor="maritalStatus">Marital Status</Label>
+        <Select defaultValue={employee.maritalStatus}>
+          <SelectTrigger>
+            <SelectValue placeholder="Select marital status" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="Single">Single</SelectItem>
+            <SelectItem value="Married">Married</SelectItem>
+            <SelectItem value="Divorced">Divorced</SelectItem>
+            <SelectItem value="Widowed">Widowed</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="panCard">Pan Card</Label>
-                <Input id="panCard" defaultValue="XY10009034P" />
-              </div>
+      <div className="space-y-2">
+        <Label htmlFor="panCard">Pan Card</Label>
+        <Input id="panCard" defaultValue="XY10009034P" />
+      </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="aadharCard">Aadhar Card</Label>
-                <Input id="aadharCard" defaultValue="3266 5656 9656" />
-              </div>
-            </div>
+      <div className="space-y-2">
+        <Label htmlFor="aadharCard">Aadhar Card</Label>
+        <Input id="aadharCard" defaultValue="3266 5656 9656" />
+      </div>
+    </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="permanentAddress">Permanent Address</Label>
-              <Textarea id="permanentAddress" defaultValue={employee.address} rows={2} />
-            </div>
+    <div className="space-y-2">
+      <Label htmlFor="permanentAddress">Permanent Address</Label>
+      <Textarea id="permanentAddress" defaultValue={employee.address} rows={2} />
+    </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="currentAddress">Current Address</Label>
-              <Textarea id="currentAddress" defaultValue={employee.address} rows={2} />
-            </div>
-          </div>
-          <DialogFooter>
-            <Button type="submit">Submit</Button>
-            <DialogClose asChild>
-              <Button type="button" variant="outline">
-                Cancel
-              </Button>
-            </DialogClose>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+    <div className="space-y-2">
+      <Label htmlFor="currentAddress">Current Address</Label>
+      <Textarea id="currentAddress" defaultValue={employee.address} rows={2} />
+    </div>
+  </div>
+</EmployeeModal>
 
   
         {/* Professional Information Edit Modal */}
-        <Dialog open={professionalModalOpen} onOpenChange={setProfessionalModalOpen}>
-        <DialogContent className="sm:max-w-[600px]">
-          <DialogHeader>
-            <DialogTitle>Professional Information</DialogTitle>
-            <DialogDescription>Edit employee professional information</DialogDescription>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="department">Department</Label>
-                <Select defaultValue={employee.department}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select department" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value={employee.department}>{employee.department}</SelectItem>
-                    <SelectItem value="Sales">Sales</SelectItem>
-                    <SelectItem value="Marketing">Marketing</SelectItem>
-                    <SelectItem value="Engineering">Engineering</SelectItem>
-                    <SelectItem value="Human Resources">Human Resources</SelectItem>
-                    <SelectItem value="Finance">Finance</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+        <EmployeeModal
+  title="Professional Information"
+  isOpen={professionalModalOpen}
+  onOpenChange={setProfessionalModalOpen}
+  showFooter={true}
+  submitLabel="Save Changes"
+  onSubmit={() => alert("Professional Information Updated!")}
+  size="sm"
+>
+  <div className="grid gap-4 py-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="space-y-2">
+        <Label htmlFor="department">Department</Label>
+        <Select defaultValue={employee.department}>
+          <SelectTrigger>
+            <SelectValue placeholder="Select department" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value={employee.department}>{employee.department}</SelectItem>
+            <SelectItem value="Sales">Sales</SelectItem>
+            <SelectItem value="Marketing">Marketing</SelectItem>
+            <SelectItem value="Engineering">Engineering</SelectItem>
+            <SelectItem value="Human Resources">Human Resources</SelectItem>
+            <SelectItem value="Finance">Finance</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="joiningDate">Joining Date</Label>
-                <Input id="joiningDate" type="date" defaultValue="2023-05-20" />
-              </div>
+      <div className="space-y-2">
+        <Label htmlFor="joiningDate">Joining Date</Label>
+        <Input id="joiningDate" type="date" defaultValue="2023-05-20" />
+      </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="employeeEmail">Employee Email</Label>
-                <Input id="employeeEmail" type="email" defaultValue={employee.email} />
-              </div>
+      <div className="space-y-2">
+        <Label htmlFor="employeeEmail">Employee Email</Label>
+        <Input id="employeeEmail" type="email" defaultValue={employee.email} />
+      </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="probationEndDate">Probation End Date</Label>
-                <Input id="probationEndDate" type="date" defaultValue="2023-05-20" />
-              </div>
+      <div className="space-y-2">
+        <Label htmlFor="probationEndDate">Probation End Date</Label>
+        <Input id="probationEndDate" type="date" defaultValue="2023-05-20" />
+      </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="noticePeriodStartDate">Notice Period Start Date</Label>
-                <Input id="noticePeriodStartDate" type="date" defaultValue="2023-05-20" />
-              </div>
+      <div className="space-y-2">
+        <Label htmlFor="noticePeriodStartDate">Notice Period Start Date</Label>
+        <Input id="noticePeriodStartDate" type="date" defaultValue="2023-05-20" />
+      </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="resignationDate">Resignation Date</Label>
-                <Input id="resignationDate" type="date" defaultValue="2023-05-20" />
-              </div>
+      <div className="space-y-2">
+        <Label htmlFor="resignationDate">Resignation Date</Label>
+        <Input id="resignationDate" type="date" defaultValue="2023-05-20" />
+      </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="shift">Shift</Label>
-                <Select defaultValue="Day">
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select shift" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Day">Day</SelectItem>
-                    <SelectItem value="Night">Night</SelectItem>
-                    <SelectItem value="Rotating">Rotating</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
+      <div className="space-y-2">
+        <Label htmlFor="shift">Shift</Label>
+        <Select defaultValue="Day">
+          <SelectTrigger>
+            <SelectValue placeholder="Select shift" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="Day">Day</SelectItem>
+            <SelectItem value="Night">Night</SelectItem>
+            <SelectItem value="Rotating">Rotating</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+    </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="updatedCV">Updated CV</Label>
-              <div className="flex items-center gap-2">
-                <Input id="updatedCV" type="file" className="cursor-pointer" />
-              </div>
-            </div>
-          </div>
-          <DialogFooter>
-            <Button type="submit">Submit</Button>
-            <DialogClose asChild>
-              <Button type="button" variant="outline">
-                Cancel
-              </Button>
-            </DialogClose>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+    <div className="space-y-2">
+      <Label htmlFor="updatedCV">Updated CV</Label>
+      <div className="flex items-center gap-2">
+        <Input id="updatedCV" type="file" className="cursor-pointer" />
+      </div>
+    </div>
+  </div>
+</EmployeeModal>
 
   
         {/* Emergency Contact Modal */}

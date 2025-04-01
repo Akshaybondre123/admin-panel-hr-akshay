@@ -25,7 +25,7 @@ className
     onClick={onClick}
     disabled={disabled}
   
-    className={`flex justify-center items-center w-full bg-black text-white py-3 rounded-lg hover:bg-black/90 transition-colors mt-4 ${className}`}
+    className={`flex justify-center items-center w-full text-white py-3 rounded-lg hover:bg-black/90 transition-colors mt-4 ${className}`}
   >
     {label}
     {loading && <IonSpinner className="ml-4" />} {/* Added margin if needed */}

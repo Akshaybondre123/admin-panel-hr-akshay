@@ -292,205 +292,133 @@ export default function EmployeeDetailView({ employee }: EmployeeDetailProps) {
         {/* Main Content */}
         <div className="flex-1 flex flex-col overflow-hidden">
           {/* Header */}
-          <AppHeader />
+          <AppHeader title="Employee Profile" />
   
           {/* Content Area */}
           <div className="flex-1 overflow-auto p-4 sm:p-6">
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="mb-6 flex flex-wrap">
-                <TabsTrigger value="profile">Profile</TabsTrigger>
-                <TabsTrigger value="emergency">Emergency Contact</TabsTrigger>
-                <TabsTrigger value="documents">Documents</TabsTrigger>
-                <TabsTrigger value="leaves">Leaves</TabsTrigger>
-              </TabsList>
-               
-              <TabsContent value="profile" className="mt-0">
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                  {/* Profile Card - Full width on mobile, 2/3 width on larger screens */}
-                  <div className="md:col-span-2">
-                    <Card className="w-full">
-                      <CardHeader className="pb-2 flex flex-row items-center justify-between">
-                        <CardTitle>Profile</CardTitle>
-                        <Button variant="ghost" size="icon" onClick={() => setProfileModalOpen(true)} className="h-8 w-8">
-                          <PenSquare className="h-4 w-4" />
-                          <span className="sr-only">Edit Profile</span>
-                        </Button>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-                          <Avatar className="h-12 w-12">
-                            <AvatarImage src={employee.avatar} alt={employee.name} />
-                            <AvatarFallback>{employee.name.charAt(0)}</AvatarFallback>
-                          </Avatar>
-                          <div className="space-y-1">
-                            <h3 className="text-xl font-semibold">{employee.name}</h3>
-                            <p className="text-muted-foreground">{employee.role}</p>
-                            <p className="text-sm">Employee ID: {employee.employeeId}</p>
-                            <Badge variant={employee.status === "Active" ? "success" : "destructive"} className="mt-1">
-                              {employee.status}
-                            </Badge>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-                  <div className="md:col-span-2">
-                    <Card className="w-full">
-                      <CardHeader className="pb-2 flex flex-row items-center justify-between">
-                        <CardTitle>Personal Information</CardTitle>
-                        <Button variant="ghost" size="icon" onClick={() => setPersonalModalOpen(true)} className="h-8 w-8">
-                          <PenSquare className="h-4 w-4" />
-                          <span className="sr-only">Edit Personal Information</span>
-                        </Button>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                          <div className="flex items-start gap-2">
-                            <Phone className="h-4 w-4 mt-0.5 text-muted-foreground" />
-                            <div>
-                              <p className="text-sm font-medium">Mobile</p>
-                              <p className="text-sm text-muted-foreground">{employee.mobile}</p>
-                            </div>
-                          </div>
-                          <div className="flex items-start gap-2">
-                            <User className="h-4 w-4 mt-0.5 text-muted-foreground" />
-                            <div>
-                              <p className="text-sm font-medium">Gender</p>
-                              <p className="text-sm text-muted-foreground">{employee.gender}</p>
-                            </div>
-                          </div>
-                          <div className="flex items-start gap-2">
-                            <Calendar className="h-4 w-4 mt-0.5 text-muted-foreground" />
-                            <div>
-                              <p className="text-sm font-medium">Date of Birth</p>
-                              <p className="text-sm text-muted-foreground">{employee.dateOfBirth}</p>
-                            </div>
-                          </div>
-                          <div className="flex items-start gap-2">
-                            <Users className="h-4 w-4 mt-0.5 text-muted-foreground" />
-                            <div>
-                              <p className="text-sm font-medium">Marital Status</p>
-                              <p className="text-sm text-muted-foreground">{employee.maritalStatus}</p>
-                            </div>
-                          </div>
-                          <div className="flex items-start gap-2">
-                            <User className="h-4 w-4 mt-0.5 text-muted-foreground" />
-                            <div>
-                              <p className="text-sm font-medium">Blood Group</p>
-                              <p className="text-sm text-muted-foreground">{employee.bloodGroup}</p>
-                            </div>
-                          </div>
-                          <div className="flex items-start gap-2">
-                            <MapPin className="h-4 w-4 mt-0.5 text-muted-foreground" />
-                            <div>
-                              <p className="text-sm font-medium">Address</p>
-                              <p className="text-sm text-muted-foreground">{employee.address}</p>
-                            </div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
+  <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+  <TabsList className="mb-6 flex flex-wrap justify-start w-auto">
+      <TabsTrigger value="profile">Profile</TabsTrigger>
+      <TabsTrigger value="emergency">Emergency Contact</TabsTrigger>
+      <TabsTrigger value="documents">Documents</TabsTrigger>
+      <TabsTrigger value="leaves">Leaves</TabsTrigger>
+    </TabsList>
+    
+    <TabsContent value="profile" className="mt-0">
+  <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+    {/* Left content - takes 3/4 (75%) of space */}
+    <div className="lg:col-span-3 space-y-6">
+      {/* Profile Card */}
+      <Card>
+        <CardHeader className="pb-2 flex flex-row items-center justify-between">
+          <CardTitle>Profile</CardTitle>
+          <Button variant="ghost" size="icon" onClick={() => setProfileModalOpen(true)} className="h-8 w-8">
+            <PenSquare className="h-4 w-4" />
+          </Button>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+            <Avatar className="h-12 w-12">
+              <AvatarImage src={employee.avatar} alt={employee.name} />
+              <AvatarFallback>{employee.name.charAt(0)}</AvatarFallback>
+            </Avatar>
+            <div className="space-y-1">
+              <h3 className="text-xl font-semibold">{employee.name}</h3>
+              <p className="text-muted-foreground">{employee.role}</p>
+              <p className="text-sm">Employee ID: {employee.employeeId}</p>
+              <Badge variant={employee.status === "Active" ? "success" : "destructive"} className="mt-1">
+                {employee.status}
+              </Badge>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Personal Information Card */}
+      <Card>
+        <CardHeader className="pb-2 flex flex-row items-center justify-between">
+          <CardTitle>Personal Information</CardTitle>
+          <Button variant="ghost" size="icon" onClick={() => setPersonalModalOpen(true)} className="h-8 w-8">
+            <PenSquare className="h-4 w-4" />
+          </Button>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Personal info fields */}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Professional Information Card */}
+      <Card>
+        <CardHeader className="pb-2 flex flex-row items-center justify-between">
+          <CardTitle>Professional Information</CardTitle>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setProfessionalModalOpen(true)}
+            className="h-8 w-8"
+          >
+            <PenSquare className="h-4 w-4" />
+          </Button>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Professional info fields */}
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+
+    {/* Right sidebar - takes 1/4 (25%) of space */}
+    <div className="lg:col-span-1">
+      <Card className="h-full">
+        <CardHeader className="pb-2">
+          <CardTitle>Team Hierarchy</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-6">
+            <div>
+              <h4 className="text-sm font-medium mb-2">Reporting To</h4>
+              <div className="flex items-center gap-3">
+                <Avatar className="h-10 w-10">
+                  <AvatarImage src={employee.reportingManager.avatar} alt={employee.reportingManager.name} />
+                  <AvatarFallback>{employee.reportingManager.name.charAt(0)}</AvatarFallback>
+                </Avatar>
+                <div>
+                  <p className="text-sm font-medium">{employee.reportingManager.name}</p>
+                  <p className="text-xs text-muted-foreground">{employee.reportingManager.role}</p>
                 </div>
-                <div className="md:col-span-2">
-                <Card className="w-full">
-                  <CardHeader className="pb-2 flex flex-row items-center justify-between">
-                    <CardTitle>Professional Information</CardTitle>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => setProfessionalModalOpen(true)}
-                      className="h-8 w-8"
-                    >
-                      <PenSquare className="h-4 w-4" />
-                      <span className="sr-only">Edit Professional Information</span>
-                    </Button>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div className="flex items-start gap-2">
-                        <Briefcase className="h-4 w-4 mt-0.5 text-muted-foreground" />
-                        <div>
-                          <p className="text-sm font-medium">Department</p>
-                          <p className="text-sm text-muted-foreground">{employee.department}</p>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <Calendar className="h-4 w-4 mt-0.5 text-muted-foreground" />
-                        <div>
-                          <p className="text-sm font-medium">Joining Date</p>
-                          <p className="text-sm text-muted-foreground">{employee.dateOfJoining}</p>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <Mail className="h-4 w-4 mt-0.5 text-muted-foreground" />
-                        <div>
-                          <p className="text-sm font-medium">Employee Email</p>
-                          <p className="text-sm text-muted-foreground">{employee.email}</p>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <MapPin className="h-4 w-4 mt-0.5 text-muted-foreground" />
-                        <div>
-                          <p className="text-sm font-medium">Location</p>
-                          <p className="text-sm text-muted-foreground">{employee.location}</p>
-                        </div>
+              </div>
+            </div>
+
+            {employee.team.length > 0 && (
+              <div>
+                <h4 className="text-sm font-medium mb-2">Reporting Team</h4>
+                <div className="space-y-3">
+                  {employee.team.map((member, index) => (
+                    <div key={index} className="flex items-center gap-3">
+                      <Avatar className="h-10 w-10">
+                        <AvatarImage src={member.avatar} alt={member.name} />
+                        <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <p className="text-sm font-medium">{member.name}</p>
+                        <p className="text-xs text-muted-foreground">{member.role}</p>
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
+                  ))}
+                </div>
               </div>
-           
+            )}
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  </div>
+</TabsContent>
 
-  
-                  {/* Team Hierarchy Card - Full width on mobile, 1/3 width on larger screens */}
-                  <div className="lg:row-span-3">
-                    <Card className="w-full h-full">
-                      <CardHeader className="pb-2">
-                        <CardTitle>Team Hierarchy</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-6">
-                          <div>
-                            <h4 className="text-sm font-medium mb-2">Reporting To</h4>
-                            <div className="flex items-center gap-3">
-                              <Avatar className="h-10 w-10">
-                                <AvatarImage src={employee.reportingManager.avatar} alt={employee.reportingManager.name} />
-                                <AvatarFallback>{employee.reportingManager.name.charAt(0)}</AvatarFallback>
-                              </Avatar>
-                              <div>
-                                <p className="text-sm font-medium">{employee.reportingManager.name}</p>
-                                <p className="text-xs text-muted-foreground">{employee.reportingManager.role}</p>
-                              </div>
-                            </div>
-                          </div>
-  
-                          {employee.team.length > 0 && (
-                            <div>
-                              <h4 className="text-sm font-medium mb-2">Reporting Team</h4>
-                              <div className="space-y-3">
-                                {employee.team.map((member, index) => (
-                                  <div key={index} className="flex items-center gap-3">
-                                    <Avatar className="h-10 w-10">
-                                      <AvatarImage src={member.avatar} alt={member.name} />
-                                      <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
-                                    </Avatar>
-                                    <div>
-                                      <p className="text-sm font-medium">{member.name}</p>
-                                      <p className="text-xs text-muted-foreground">{member.role}</p>
-                                    </div>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-  
-                  
-            </TabsContent>
+ 
   
               {/* Emergency Contact Tab */}
               <TabsContent value="emergency" className="mt-0">
@@ -621,49 +549,50 @@ export default function EmployeeDetailView({ employee }: EmployeeDetailProps) {
               {/* Leaves Tab */}
               <TabsContent value="leaves" className="mt-0">
                 <Card className="w-full">
-                  <CardHeader className="pb-2">
-                    <CardTitle>Leaves</CardTitle>
-                    <p className="text-sm text-muted-foreground">
-                      Showing leave quota records From 1st April 2025 To 31st Mar 2026
-                    </p>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex flex-col md:flex-row gap-4 justify-between mb-4">
-                      <div className="relative w-full md:w-72">
-                        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                        <Input type="search" placeholder="Search" className="pl-8" />
-                      </div>
+                 
+                  <CardContent className="space-y-4">
+                  <div className="flex flex-col sm:flex-row gap-3 items-center justify-between pt-2">
+  {/* Search Bar - Takes remaining space */}
+  <div className="relative w-full sm:w-[200px]">
+    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+    <Input 
+      type="search" 
+      placeholder="Search..." 
+      className="pl-8 h-9 text-sm w-full"
+    />
+  </div>
+
+  {/* Dropdowns - Flex wrap on small screens */}
+  <div className="flex flex-nowrap gap-2 w-full sm:w-auto mt-2 sm:mt-0">
+    <Select defaultValue="all">
+      <SelectTrigger className="w-[120px] sm:w-[140px] h-9 text-sm">
+        <SelectValue placeholder="Status" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="all" className="text-sm">All Status</SelectItem>
+        <SelectItem value="pending" className="text-sm">Pending</SelectItem>
+        <SelectItem value="approved" className="text-sm">Approved</SelectItem>
+        <SelectItem value="rejected" className="text-sm">Rejected</SelectItem>
+      </SelectContent>
+    </Select>
+
+    <Select defaultValue="all">
+      <SelectTrigger className="w-[120px] sm:w-[140px] h-9 text-sm">
+        <SelectValue placeholder="Leave Type" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="all" className="text-sm">All Types</SelectItem>
+        <SelectItem value="cl" className="text-sm">Casual Leave</SelectItem>
+        <SelectItem value="sl" className="text-sm">Sick Leave</SelectItem>
+        <SelectItem value="el" className="text-sm">Earned Leave</SelectItem>
+      </SelectContent>
+    </Select>
+  </div>
+</div>
   
-                      <div className="flex flex-wrap gap-2">
-                        <Select defaultValue="all">
-                          <SelectTrigger className="w-[150px]">
-                            <SelectValue placeholder="Status" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="all">All Status</SelectItem>
-                            <SelectItem value="pending">Pending</SelectItem>
-                            <SelectItem value="approved">Approved</SelectItem>
-                            <SelectItem value="rejected">Rejected</SelectItem>
-                          </SelectContent>
-                        </Select>
-  
-                        <Select defaultValue="all">
-                          <SelectTrigger className="w-[150px]">
-                            <SelectValue placeholder="Leave Type" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="all">All Types</SelectItem>
-                            <SelectItem value="cl">Casual Leave</SelectItem>
-                            <SelectItem value="sl">Sick Leave</SelectItem>
-                            <SelectItem value="el">Earned Leave</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-  
-                    <div className="bg-muted/30 p-3 rounded-md mb-4">
-                      <p className="text-sm font-medium">Available Leaves: 4</p>
-                    </div>
+                   <div className="bg-gray-100 p-3 rounded-md mb-4">
+  <p className="text-sm font-medium">Available Leaves: 4</p>
+</div>
   
                     {/* Leave Quota Table */}
                     <div className="rounded-md border mb-6 overflow-x-auto">
@@ -992,66 +921,58 @@ export default function EmployeeDetailView({ employee }: EmployeeDetailProps) {
 
   
         {/* Emergency Contact Modal */}
-        <Dialog open={emergencyContactModalOpen} onOpenChange={setEmergencyContactModalOpen}>
-        <DialogContent className="sm:max-w-[500px]">
-          <DialogHeader>
-            <DialogTitle>Add Emergency Contact</DialogTitle>
-            <DialogDescription>Add a new emergency contact for this employee</DialogDescription>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="contactName">Name</Label>
-                <Input id="contactName" placeholder="eg. John Doe" />
-              </div>
+        <EmployeeModal
+  title="Add Emergency Contact"
+  isOpen={emergencyContactModalOpen}
+  onOpenChange={setEmergencyContactModalOpen}
+  description="Add a new emergency contact for this employee"
+  submitLabel="Submit"
+  onSubmit={() => {
+    // Handle submission logic here
+  }}
+>
+  <div className="grid gap-4 py-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="space-y-2">
+        <Label htmlFor="contactName">Name</Label>
+        <Input id="contactName" placeholder="eg. John Doe" />
+      </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="contactEmail">Email</Label>
-                <Input id="contactEmail" type="email" placeholder="eg. john.doe@example.com" />
-              </div>
+      <div className="space-y-2">
+        <Label htmlFor="contactEmail">Email</Label>
+        <Input id="contactEmail" type="email" placeholder="eg. john.doe@example.com" />
+      </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="contactPhone">Phone</Label>
-                <Input id="contactPhone" placeholder="eg. 1234567890" />
-              </div>
+      <div className="space-y-2">
+        <Label htmlFor="contactPhone">Phone</Label>
+        <Input id="contactPhone" placeholder="eg. 1234567890" />
+      </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="contactRelationship">Relationship</Label>
-                <Select>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="spouse">Spouse</SelectItem>
-                    <SelectItem value="parent">Parent</SelectItem>
-                    <SelectItem value="sibling">Sibling</SelectItem>
-                    <SelectItem value="child">Child</SelectItem>
-                    <SelectItem value="friend">Friend</SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
+      <div className="space-y-2">
+        <Label htmlFor="contactRelationship">Relationship</Label>
+        <Select>
+          <SelectTrigger>
+            <SelectValue placeholder="Select" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="spouse">Spouse</SelectItem>
+            <SelectItem value="parent">Parent</SelectItem>
+            <SelectItem value="sibling">Sibling</SelectItem>
+            <SelectItem value="child">Child</SelectItem>
+            <SelectItem value="friend">Friend</SelectItem>
+            <SelectItem value="other">Other</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+    </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="contactAddress">Address</Label>
-              <Textarea
-                id="contactAddress"
-                placeholder="eg. 01, B/15, Apart. Name, Street, City, State, Pincode"
-                rows={2}
-              />
-            </div>
-          </div>
-          <DialogFooter>
-            <Button type="submit">Submit</Button>
-            <DialogClose asChild>
-              <Button type="button" variant="outline">
-                Cancel
-              </Button>
-            </DialogClose>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+    <div className="space-y-2">
+      <Label htmlFor="contactAddress">Address</Label>
+      <Textarea id="contactAddress" placeholder="eg. 01, B/15, Apart. Name, Street, City, State, Pincode" rows={2} />
+    </div>
+  </div>
+</EmployeeModal>
+
 
   
         {/* Document Upload Modal */}

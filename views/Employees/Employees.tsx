@@ -14,7 +14,7 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import AppHeader from "@/components/appLayout/AppHeader"
 import AppSidebar from "@/components/appLayout/AppSidebar"
-
+import AddNewEmployee from "./AddNewEmployee"
 // Sample employee data
 const employees = [
   {
@@ -83,6 +83,7 @@ export default function EmployeesView() {
   const [inviteModalOpen, setInviteModalOpen] = useState(false)
   const [email, setEmail] = useState("")
   const [message, setMessage] = useState("We're excited to invite you to join our team! Please click the link below to complete your registration and set up your account.")
+  const [addEmployeeOpen, setAddEmployeeOpen] = useState(false);
 
   // Filter employees based on search query
   const filteredEmployees = employees.filter(
@@ -114,16 +115,16 @@ export default function EmployeesView() {
         <main className="flex-1 overflow-auto p-4 sm:p-6">
           {/* Combined search, filters, and buttons in one row */}
           <div className="flex flex-col gap-4 mb-6 sm:flex-row sm:items-center sm:justify-between">
-            <div className="relative sm:w-24">
-              <Search className="absolute left-2 top-2 h-3.5 w-3.5 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Search"
-                className="pl-7 py-1 text-sm w-full"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
+          <div className="relative sm:w-24">
+  <Search className="absolute left-8 top-1/2 transform -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+  <Input
+    type="search"
+    placeholder="Search"
+    className="pl-7 py-3 text-sm w-full" // Adjusted padding-left for more space between icon and text
+    value={searchQuery}
+    onChange={(e) => setSearchQuery(e.target.value)}
+  />
+</div>
 
             <div className="flex flex-wrap items-center gap-1">
               <Select value={department} onValueChange={setDepartment}>
@@ -184,10 +185,10 @@ export default function EmployeesView() {
                 <UserPlus className="h-3 w-3" />
                 Invite Employee
               </Button>
-              <Button className="gap-1">
-                <Plus className="h-4 w-1" />
-                Add Employee
-              </Button>
+              <Button className="gap-1" onClick={() => setAddEmployeeOpen(true)}>
+  <Plus className="h-4 w-4" /> {/* Fixed width to w-4 */}
+  Add Employee
+</Button>
             </div>
           </div>
 

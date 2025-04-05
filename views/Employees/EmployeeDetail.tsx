@@ -705,95 +705,95 @@ export default function EmployeeDetailView({ employee }: EmployeeDetailProps) {
   isOpen={profileModalOpen}
   onOpenChange={setProfileModalOpen}
   showFooter={true}
-  submitLabel="Save Changes"
+  submitLabel="Submit"
+  cancelLabel="Cancel"
   onSubmit={() => alert("Profile Updated!")}
-  size="sm"
 >
-  <div className="grid gap-4 py-4">
-    <div className="flex flex-col items-center gap-2 mb-2">
-      <Avatar className="h-12 w-12">
-        <AvatarImage src={employee.avatar} alt={employee.name} />
-        <AvatarFallback>{employee.name.charAt(0)}</AvatarFallback>
-      </Avatar>
-      <Button variant="outline" size="sm" className="gap-2">
-        <Upload className="h-4 w-4" />
-        Upload Profile Picture
-      </Button>
-    </div>
 
-    <div className="grid grid-cols-1 gap-4">
-      <div className="space-y-2">
-        <Label htmlFor="name">Name</Label>
-        <Input id="name" defaultValue={employee.name} />
-      </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="employeeId">Employee ID</Label>
-        <Input id="employeeId" defaultValue={employee.employeeId} />
-      </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="designation">Designation</Label>
-        <Select defaultValue={employee.role}>
-          <SelectTrigger>
-            <SelectValue placeholder="Select designation" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value={employee.role}>{employee.role}</SelectItem>
-            <SelectItem value="Sales Executive">Sales Executive</SelectItem>
-            <SelectItem value="Marketing Manager">Marketing Manager</SelectItem>
-            <SelectItem value="Software Developer">Software Developer</SelectItem>
-            <SelectItem value="HR Manager">HR Manager</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
+<div className="flex gap-10 items-start py-3 -mt-4">
 
-      <div className="space-y-2">
-        <Label htmlFor="userRole">User Role</Label>
-        <Input id="userRole" defaultValue="Employee" />
-      </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="punchAt">Punch at</Label>
-        <Input id="punchAt" defaultValue="10:00 AM" />
-      </div>
+     {/* Left Upload Section */}
+<div className="shrink-0 -ml-4"> {/* Shift slightly to the left */}
+  <div className="flex flex-col w-[330px]">
+    <label className="text-sm font-medium text-gray-700 mb-1">Photo</label>
+    <div className="border-2 border-dashed border-gray-400 rounded-lg flex flex-col items-center justify-center w-full h-32 p-4 text-center text-gray-500 text-sm">
+      <Upload className="h-6 w-6 mb-2 text-gray-500" />
+      <span className="font-medium text-sm">Upload Profile Picture</span>
+      <p className="text-xs mt-1">JPG/PNG. Max 2 MB.</p>
     </div>
   </div>
+</div>
+
+
+      {/* Right Form Section */}
+      <div className="flex flex-wrap gap-4 w-full ml-2">
+      <div className="space-y-1 w-[calc(33.333%-1rem)] min-w-[200px]">
+          <Label htmlFor="name">Name <span className="text-red-500">*</span></Label>
+          <Input id="name" defaultValue={employee.name} required />
+        </div>
+
+        <div className="space-y-1 w-[calc(33.333%-1rem)] min-w-[200px]">
+          <Label htmlFor="employeeId">Employee ID <span className="text-red-500">*</span></Label>
+          <Input id="employeeId" defaultValue={employee.employeeId} required />
+        </div>
+
+        <div className="space-y-1 w-[calc(33.333%-1rem)] min-w-[200px]">
+          <Label htmlFor="designation">Designation <span className="text-red-500">*</span></Label>
+          <Select defaultValue={employee.role} required>
+            <SelectTrigger>
+              <SelectValue placeholder="Select designation" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Sales Executive">Sales Executive</SelectItem>
+              <SelectItem value="Marketing Manager">Marketing Manager</SelectItem>
+              <SelectItem value="Software Developer">Software Developer</SelectItem>
+              <SelectItem value="HR Manager">HR Manager</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="space-y-1 w-[calc(33.333%-1rem)] min-w-[200px]">
+          <Label htmlFor="userRole">User Role <span className="text-red-500">*</span></Label>
+          <Select defaultValue="Employee" required>
+            <SelectTrigger>
+              <SelectValue placeholder="Select role" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Employee">Employee</SelectItem>
+              <SelectItem value="Admin">Admin</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="space-y-1 w-[calc(33.333%-1rem)] min-w-[200px]">
+          <Label htmlFor="punchAt">Punch at <span className="text-red-500">*</span></Label>
+          <Input id="punchAt" defaultValue="10:00 AM" type="time" required />
+        </div>
+      </div>
+    </div>
+  
 </EmployeeModal>
 
-  
-        {/* Personal Information Edit Modal */}
-        <EmployeeModal
-  title="Personal Information"
+
+{/* personal information modal */}
+
+<EmployeeModal
+  title="Update Personal Info"
   isOpen={personalModalOpen}
   onOpenChange={setPersonalModalOpen}
   showFooter={true}
   submitLabel="Save Changes"
   onSubmit={() => alert("Personal Information Updated!")}
-  size="sm"
+  cancelLabel="Cancel"
 >
-  <div className="grid gap-4 py-4">
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      <div className="space-y-2">
-        <Label htmlFor="mobile">Mobile</Label>
-        <Input id="mobile" defaultValue={employee.mobile.replace("+91 - ", "")} />
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="gender">Gender</Label>
-        <Select defaultValue={employee.gender}>
-          <SelectTrigger>
-            <SelectValue placeholder="Select gender" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="Male">Male</SelectItem>
-            <SelectItem value="Female">Female</SelectItem>
-            <SelectItem value="Other">Other</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-
-      <div className="space-y-2">
+<div className="pt-2 px-4 pb-4 border border-gray-200 rounded-xl shadow-sm bg-white max-h-[50vh] overflow-y-auto flex flex-col gap-5">
+    
+    {/* Combined Row: DOB, Marital Status, PAN, Aadhar */}
+    <div className="flex flex-wrap gap-3 w-full">
+      <div className="space-y-1 w-[calc(25%-1rem)] min-w-[200px]">
         <Label htmlFor="dateOfBirth">Date of Birth</Label>
         <Input
           id="dateOfBirth"
@@ -802,7 +802,7 @@ export default function EmployeeDetailView({ employee }: EmployeeDetailProps) {
         />
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-1 w-[calc(25%-1rem)] min-w-[200px]">
         <Label htmlFor="maritalStatus">Marital Status</Label>
         <Select defaultValue={employee.maritalStatus}>
           <SelectTrigger>
@@ -817,30 +817,50 @@ export default function EmployeeDetailView({ employee }: EmployeeDetailProps) {
         </Select>
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="panCard">Pan Card</Label>
-        <Input id="panCard" defaultValue="XY10009034P" />
+      <div className="space-y-1 w-[calc(25%-1rem)] min-w-[200px]">
+        <Label htmlFor="panCard">
+          PAN Card <span className="text-red-500">*</span>
+        </Label>
+        <Input id="panCard" defaultValue="XY1000036P" />
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="aadharCard">Aadhar Card</Label>
-        <Input id="aadharCard" defaultValue="3266 5656 9656" />
+      <div className="space-y-1 w-[calc(25%-1rem)] min-w-[200px]">
+        <Label htmlFor="aadharCard">
+          Aadhar Card <span className="text-red-500">*</span>
+        </Label>
+        <Input id="aadharCard" defaultValue="3265 5656 5656" />
       </div>
     </div>
 
-    <div className="space-y-2">
-      <Label htmlFor="permanentAddress">Permanent Address</Label>
-      <Textarea id="permanentAddress" defaultValue={employee.address} rows={2} />
+    {/* Permanent Address */}
+    <div className="space-y-1 w-full">
+      <Label htmlFor="permanentAddress">
+        Permanent Address <span className="text-red-500">*</span>
+      </Label>
+      <Textarea
+        id="permanentAddress"
+        defaultValue={employee.address}
+        rows={2}
+      />
     </div>
 
-    <div className="space-y-2">
-      <Label htmlFor="currentAddress">Current Address</Label>
-      <Textarea id="currentAddress" defaultValue={employee.address} rows={2} />
+    {/* Current Address */}
+    <div className="space-y-1 w-full">
+      <Label htmlFor="currentAddress">
+        Current Address <span className="text-red-500">*</span>
+      </Label>
+      <Textarea
+        id="currentAddress"
+        defaultValue={employee.address}
+        rows={2}
+      />
     </div>
   </div>
 </EmployeeModal>
 
-  
+
+
+
         {/* Professional Information Edit Modal */}
         <EmployeeModal
   title="Professional Information"
@@ -848,130 +868,89 @@ export default function EmployeeDetailView({ employee }: EmployeeDetailProps) {
   onOpenChange={setProfessionalModalOpen}
   showFooter={true}
   submitLabel="Save Changes"
+  cancelLabel="Cancel"
   onSubmit={() => alert("Professional Information Updated!")}
-  size="sm"
 >
-  <div className="grid gap-4 py-4">
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      <div className="space-y-2">
+  <div className="flex gap-6 items-start py-1">
+    
+    {/* Left Form Section */}
+    <div className="flex flex-wrap gap-6 w-full ml-4">
+      
+      <div className="space-y-1 w-[calc(33.333%-1.5rem)] min-w-[220px] ml-4">
         <Label htmlFor="department">Department</Label>
         <Select defaultValue={employee.department}>
-          <SelectTrigger>
+          <SelectTrigger className="h-8 text-sm">
             <SelectValue placeholder="Select department" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value={employee.department}>{employee.department}</SelectItem>
             <SelectItem value="Sales">Sales</SelectItem>
             <SelectItem value="Marketing">Marketing</SelectItem>
-            <SelectItem value="Engineering">Engineering</SelectItem>
+            {/* <SelectItem value="Engineering">Engineering</SelectItem> */}
             <SelectItem value="Human Resources">Human Resources</SelectItem>
             <SelectItem value="Finance">Finance</SelectItem>
           </SelectContent>
         </Select>
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-1 w-[calc(33.333%-1.5rem)] min-w-[220px] ml-4">
+
         <Label htmlFor="joiningDate">Joining Date</Label>
-        <Input id="joiningDate" type="date" defaultValue="2023-05-20" />
+        <Input id="joiningDate" type="date" defaultValue="2023-05-20" className="h-8 text-sm" />
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-1 w-[calc(33.333%-1.5rem)] min-w-[220px] ml-4">
         <Label htmlFor="employeeEmail">Employee Email</Label>
-        <Input id="employeeEmail" type="email" defaultValue={employee.email} />
+        <Input id="employeeEmail" type="email" defaultValue={employee.email} className="h-8 text-sm" />
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="probationEndDate">Probation End Date</Label>
-        <Input id="probationEndDate" type="date" defaultValue="2023-05-20" />
-      </div>
+      {/* Second row with margin for spacing */}
+      <div className="flex w-full gap-6 mt-4 ml-4">
+        <div className="space-y-1 w-[calc(33.333%-1.5rem)] min-w-[220px] ml-4">
+          <Label htmlFor="probationEndDate">Probation End Date</Label>
+          <Input id="probationEndDate" type="date" defaultValue="2023-05-20" className="h-8 text-sm" />
+        </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="noticePeriodStartDate">Notice Period Start Date</Label>
-        <Input id="noticePeriodStartDate" type="date" defaultValue="2023-05-20" />
-      </div>
+        <div className="space-y-1 w-[calc(33.333%-1.5rem)] min-w-[220px] ml-4">
+          <Label htmlFor="noticePeriodStartDate">Notice Period Start Date</Label>
+          <Input id="noticePeriodStartDate" type="date" defaultValue="2023-05-20" className="h-8 text-sm" />
+        </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="resignationDate">Resignation Date</Label>
-        <Input id="resignationDate" type="date" defaultValue="2023-05-20" />
-      </div>
+        <div className="space-y-1 w-[calc(33.333%-1.5rem)] min-w-[220px] ml-4">
+          <Label htmlFor="resignationDate">Resignation Date</Label>
+          <Input id="resignationDate" type="date" defaultValue="2023-05-20" className="h-8 text-sm" />
+        </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="shift">Shift</Label>
-        <Select defaultValue="Day">
-          <SelectTrigger>
-            <SelectValue placeholder="Select shift" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="Day">Day</SelectItem>
-            <SelectItem value="Night">Night</SelectItem>
-            <SelectItem value="Rotating">Rotating</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-    </div>
-
-    <div className="space-y-2">
-      <Label htmlFor="updatedCV">Updated CV</Label>
-      <div className="flex items-center gap-2">
-        <Input id="updatedCV" type="file" className="cursor-pointer" />
+        <div className="space-y-1 w-[calc(33.333%-1.5rem)] min-w-[220px] ml-4">
+          <Label htmlFor="shift">Shift</Label>
+          <Select defaultValue="Day">
+            <SelectTrigger className="h-8 text-sm">
+              <SelectValue placeholder="Select shift" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Day">Day</SelectItem>
+              <SelectItem value="Night">Night</SelectItem>
+              <SelectItem value="Rotating">Rotating</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
     </div>
   </div>
-</EmployeeModal>
 
-  
-        {/* Emergency Contact Modal */}
-        <EmployeeModal
-  title="Add Emergency Contact"
-  isOpen={emergencyContactModalOpen}
-  onOpenChange={setEmergencyContactModalOpen}
-  description="Add a new emergency contact for this employee"
-  submitLabel="Submit"
-  onSubmit={() => {
-    // Handle submission logic here
-  }}
->
-  <div className="grid gap-4 py-4">
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      <div className="space-y-2">
-        <Label htmlFor="contactName">Name</Label>
-        <Input id="contactName" placeholder="eg. John Doe" />
+  {/* New Row for CV Upload */}
+  <div className="w-full mt-6 flex justify-center">
+    <div className="w-full max-w-xs p-4 border-2 border-dashed border-gray-400 rounded-lg flex flex-col items-center">
+      <Label htmlFor="updatedCV" className="mb-2 text-center">Updated CV</Label>
+      <div className="flex flex-col items-center justify-center">
+        <Input id="updatedCV" type="file" className="cursor-pointer h-8 text-sm border p-2 rounded" />
+        <p className="mt-2 text-xs text-gray-500">PDF/Word. Max 5 MB.</p>
       </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="contactEmail">Email</Label>
-        <Input id="contactEmail" type="email" placeholder="eg. john.doe@example.com" />
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="contactPhone">Phone</Label>
-        <Input id="contactPhone" placeholder="eg. 1234567890" />
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="contactRelationship">Relationship</Label>
-        <Select>
-          <SelectTrigger>
-            <SelectValue placeholder="Select" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="spouse">Spouse</SelectItem>
-            <SelectItem value="parent">Parent</SelectItem>
-            <SelectItem value="sibling">Sibling</SelectItem>
-            <SelectItem value="child">Child</SelectItem>
-            <SelectItem value="friend">Friend</SelectItem>
-            <SelectItem value="other">Other</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-    </div>
-
-    <div className="space-y-2">
-      <Label htmlFor="contactAddress">Address</Label>
-      <Textarea id="contactAddress" placeholder="eg. 01, B/15, Apart. Name, Street, City, State, Pincode" rows={2} />
     </div>
   </div>
+
 </EmployeeModal>
+
 
 
   

@@ -391,37 +391,54 @@ export default function LeavesView() {
   title={`Leave Request for ${selectedLeave?.employeeName}`}
   isOpen={viewModalOpen}
   onOpenChange={setViewModalOpen}
-  showFooter={false} // Since you have a custom footer
+  showFooter={true}
+  submitLabel="Approve"
+  onSubmit={() => alert("Leave Approved")}
 >
   {selectedLeave && (
-    <div className="grid grid-cols-2 gap-4 py-4">
-      <div className="space-y-1">
-        <Label className="text-sm text-muted-foreground">Leave Type</Label>
-        <p className="font-medium">
-          {selectedLeave.type === "CL" ? "Casual" : selectedLeave.type === "SL" ? "Sick" : "Earned"} Leave
-        </p>
+    <div className="space-y-6 px-6 py-4 text-sm">
+
+      {/* Row 1: Basic Leave Info */}
+      <div className="grid grid-cols-5 gap-4 items-start">
+        <div className="space-y-1">
+          <Label className="text-muted-foreground block">Leave Type</Label>
+          <p className="font-medium">
+            {selectedLeave.type === "CL"
+              ? "Casual"
+              : selectedLeave.type === "SL"
+              ? "Sick"
+              : "Earned"}{" "}
+            Leave
+          </p>
+        </div>
+        
+        <div className="space-y-1">
+          <Label className="text-muted-foreground block">Date of Application</Label>
+          <p className="font-medium">{selectedLeave.appliedOn}</p>
+        </div>
+        
+        <div className="space-y-1">
+          <Label className="text-muted-foreground block">Leave Date</Label>
+          <p className="font-medium">
+            {selectedLeave.startDate} – {selectedLeave.endDate}
+          </p>
+        </div>
+        
+        <div className="space-y-1">
+          <Label className="text-muted-foreground block">Days</Label>
+          <p className="font-medium">{selectedLeave.days}</p>
+        </div>
+        
+        <div className="space-y-1">
+          <Label className="text-muted-foreground block">Duration</Label>
+          <p className="font-medium">{selectedLeave.duration}</p>
+        </div>
       </div>
-      <div className="space-y-1">
-        <Label className="text-sm text-muted-foreground">Date of Application</Label>
-        <p className="font-medium">{selectedLeave.appliedOn}</p>
-      </div>
-      <div className="space-y-1">
-        <Label className="text-sm text-muted-foreground">Leave Date</Label>
-        <p className="font-medium">
-          {selectedLeave.startDate} - {selectedLeave.endDate}
-        </p>
-      </div>
-      <div className="space-y-1">
-        <Label className="text-sm text-muted-foreground">Days</Label>
-        <p className="font-medium">{selectedLeave.days}</p>
-      </div>
-      <div className="space-y-1">
-        <Label className="text-sm text-muted-foreground">Duration</Label>
-        <p className="font-medium">{selectedLeave.duration}</p>
-      </div>
-      <div className="space-y-1">
-        <Label className="text-sm text-muted-foreground">TL Status</Label>
-        <div>
+
+      {/* Row 2: Status Section */}
+      <div className="grid grid-cols-2 gap-4 items-start">
+        <div className="space-y-1">
+          <Label className="text-muted-foreground block">TL Status</Label>
           <Badge
             variant={
               selectedLeave.tlStatus === "Approved"
@@ -434,24 +451,34 @@ export default function LeavesView() {
             {selectedLeave.tlStatus}
           </Badge>
         </div>
+        
+        <div className="space-y-1">
+          <Label className="text-muted-foreground block">TL Clarification</Label>
+          <p className="text-gray-700">
+            {selectedLeave.tlClarification || "No clarification provided"}
+          </p>
+        </div>
       </div>
-      <div className="col-span-2 space-y-1">
-        <Label className="text-sm text-muted-foreground">TL Clarification</Label>
-        <p className="text-sm">{selectedLeave.tlClarification || "No clarification provided"}</p>
+
+      {/* Row 3: Reason Section */}
+      <div className="space-y-1">
+        <Label className="text-muted-foreground block">Reason for Leave</Label>
+        <div className="p-3 bg-gray-50 rounded-md">
+          <p className="text-gray-700">{selectedLeave.reason}</p>
+        </div>
       </div>
-      <div className="col-span-2 space-y-1">
-        <Label className="text-sm text-muted-foreground">Reason for Leave</Label>
-        <p className="text-sm">{selectedLeave.reason}</p>
+
+      {/* Row 4: Approval Note Section */}
+      <div className="space-y-1">
+        <Label className="text-muted-foreground block">Approval Note</Label>
+        <div className="p-3 bg-gray-50 rounded-md">
+          <p className="text-gray-700">
+            {selectedLeave.approvalNote || "No approval note provided"}
+          </p>
+        </div>
       </div>
     </div>
   )}
-  <DialogFooter>
-    <DialogClose asChild>
-      <Button type="button" variant="outline">
-        Close
-      </Button>
-    </DialogClose>
-  </DialogFooter>
 </EmployeeModal>
 
 

@@ -1,4 +1,7 @@
+"use client"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { LayoutDashboard, Users, Calendar, DollarSign, Settings, LogOut, Car, Search } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
@@ -11,6 +14,11 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
+  const router = useRouter()
+  const handleLogout = () => {
+    
+    router.push("/login")
+  }
   return (
     <aside
       className={cn(
@@ -58,10 +66,10 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
       <div className="shrink-0 border-t bg-white p-4">
         <Button 
           variant="ghost" 
-          className="w-full justify-start gap-2 px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50"
+          className="w-full justify-start gap-2 px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50" onClick={handleLogout}
         >
-          {/* <LogOut className="h-4 w-4" /> */}
-          <span>Logout</span>
+          <LogOut className="h-4 w-4" />
+          Logout
         </Button>
         
         <div className="mt-4">

@@ -303,12 +303,14 @@ export default function EmployeeDetailView({ employee }: EmployeeDetailProps) {
       <TabsTrigger value="documents">Documents</TabsTrigger>
       <TabsTrigger value="leaves">Leaves</TabsTrigger>
     </TabsList>
-    
-    <TabsContent value="profile" className="mt-0">
-  <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-    {/* Left content - takes 3/4 (75%) of space */}
-    <div className="lg:col-span-3 space-y-6">
-      {/* Profile Card */}
+    <TabsContent value="profile" className="mt-0 space-y-6">
+  {/* First Row: Profile + Team Hierarchy */}
+  <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+
+    {/* Profile Card - 50% */}
+    <div className="w-full lg:w-3/4">
+
+
       <Card>
         <CardHeader className="pb-2 flex flex-row items-center justify-between">
           <CardTitle>Profile</CardTitle>
@@ -333,45 +335,10 @@ export default function EmployeeDetailView({ employee }: EmployeeDetailProps) {
           </div>
         </CardContent>
       </Card>
-
-      {/* Personal Information Card */}
-      <Card>
-        <CardHeader className="pb-2 flex flex-row items-center justify-between">
-          <CardTitle>Personal Information</CardTitle>
-          <Button variant="ghost" size="icon" onClick={() => setPersonalModalOpen(true)} className="h-8 w-8">
-            <PenSquare className="h-4 w-4" />
-          </Button>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {/* Personal info fields */}
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Professional Information Card */}
-      <Card>
-        <CardHeader className="pb-2 flex flex-row items-center justify-between">
-          <CardTitle>Professional Information</CardTitle>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setProfessionalModalOpen(true)}
-            className="h-8 w-8"
-          >
-            <PenSquare className="h-4 w-4" />
-          </Button>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {/* Professional info fields */}
-          </div>
-        </CardContent>
-      </Card>
     </div>
 
-    {/* Right sidebar - takes 1/4 (25%) of space */}
-    <div className="lg:col-span-1">
+    {/* Team Hierarchy Card - 50% */}
+    <div className="w-full sm:w-[35%]">
       <Card className="h-full">
         <CardHeader className="pb-2">
           <CardTitle>Team Hierarchy</CardTitle>
@@ -416,7 +383,44 @@ export default function EmployeeDetailView({ employee }: EmployeeDetailProps) {
       </Card>
     </div>
   </div>
+
+  {/* Second Row: Personal Info */}
+  <Card>
+    <CardHeader className="pb-2 flex flex-row items-center justify-between">
+      <CardTitle>Personal Information</CardTitle>
+      <Button variant="ghost" size="icon" onClick={() => setPersonalModalOpen(true)} className="h-8 w-8">
+        <PenSquare className="h-4 w-4" />
+      </Button>
+    </CardHeader>
+    <CardContent>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {/* Personal info fields */}
+      </div>
+    </CardContent>
+  </Card>
+
+  {/* Third Row: Professional Info */}
+  <Card>
+    <CardHeader className="pb-2 flex flex-row items-center justify-between">
+      <CardTitle>Professional Information</CardTitle>
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={() => setProfessionalModalOpen(true)}
+        className="h-8 w-8"
+      >
+        <PenSquare className="h-4 w-4" />
+      </Button>
+    </CardHeader>
+    <CardContent>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {/* Professional info fields */}
+      </div>
+    </CardContent>
+  </Card>
 </TabsContent>
+
+
 
  
   
@@ -951,6 +955,76 @@ export default function EmployeeDetailView({ employee }: EmployeeDetailProps) {
 
 </EmployeeModal>
 
+
+ {/* Emergency Contact Modal */}
+ <Dialog open={emergencyContactModalOpen} onOpenChange={setEmergencyContactModalOpen}>
+  <DialogContent className="max-w-lg">
+    <DialogHeader>
+      <DialogTitle>Add Emergency Contact</DialogTitle>
+      <DialogDescription>
+        Add a new emergency contact for this employee.
+      </DialogDescription>
+    </DialogHeader>
+
+    {/* Form Fields */}
+    <div className="space-y-4 py-4">
+      
+      {/* Row 1: Name + Email */}
+      <div className="flex flex-col sm:flex-row gap-4">
+        <div className="flex-1 space-y-2">
+          <Label htmlFor="contactName">Name</Label>
+          <Input id="contactName" placeholder="eg. John Doe" />
+        </div>
+        <div className="flex-1 space-y-2">
+          <Label htmlFor="contactEmail">Email</Label>
+          <Input id="contactEmail" type="email" placeholder="eg. john.doe@example.com" />
+        </div>
+      </div>
+
+      {/* Row 2: Phone + Relationship */}
+      <div className="flex flex-col sm:flex-row gap-4">
+        <div className="flex-1 space-y-2">
+          <Label htmlFor="contactPhone">Phone</Label>
+          <Input id="contactPhone" placeholder="eg. 1234567890" />
+        </div>
+        <div className="flex-1 space-y-2">
+          <Label htmlFor="contactRelationship">Relationship</Label>
+          <Select>
+            <SelectTrigger>
+              <SelectValue placeholder="Select" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="spouse">Spouse</SelectItem>
+              <SelectItem value="parent">Parent</SelectItem>
+              <SelectItem value="sibling">Sibling</SelectItem>
+              <SelectItem value="child">Child</SelectItem>
+              <SelectItem value="friend">Friend</SelectItem>
+              <SelectItem value="other">Other</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+
+      {/* Row 3: Address */}
+      <div className="space-y-2">
+        <Label htmlFor="contactAddress">Address</Label>
+        <Textarea
+          id="contactAddress"
+          placeholder="eg. 01, B/15, Apart. Name, Street, City, State, Pincode"
+          rows={2}
+        />
+      </div>
+    </div>
+
+    {/* Footer Buttons */}
+    <DialogFooter>
+      <Button type="submit">Submit</Button>
+      <DialogClose asChild>
+        <Button type="button" variant="outline">Cancel</Button>
+      </DialogClose>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
 
 
   

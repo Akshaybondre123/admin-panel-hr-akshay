@@ -182,15 +182,19 @@ export default function LeavesView() {
   <div className="flex flex-wrap items-center gap-2">
     {/* Search */}
     <div className="relative w-40">
-  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-3 w-3 text-muted-foreground" />
   <Input
     type="search"
     placeholder="Search"
-    className="pl-10 py-2 text-xs w-full" // Increased padding-left to make room for the icon
+     className="pl-10 py-2 text-xs w-full placeholder:ml-3"
     value={searchQuery}
     onChange={(e) => setSearchQuery(e.target.value)}
   />
 </div>
+
+
+
+
 
 
 
@@ -396,88 +400,91 @@ export default function LeavesView() {
   onSubmit={() => alert("Leave Approved")}
 >
   {selectedLeave && (
-    <div className="space-y-6 px-6 py-4 text-sm">
+  <div className="flex flex-col gap-6 px-6 py-4 text-sm">
 
-      {/* Row 1: Basic Leave Info */}
-      <div className="grid grid-cols-5 gap-4 items-start">
-        <div className="space-y-1">
-          <Label className="text-muted-foreground block">Leave Type</Label>
-          <p className="font-medium">
-            {selectedLeave.type === "CL"
-              ? "Casual"
-              : selectedLeave.type === "SL"
-              ? "Sick"
-              : "Earned"}{" "}
-            Leave
-          </p>
-        </div>
-        
-        <div className="space-y-1">
-          <Label className="text-muted-foreground block">Date of Application</Label>
-          <p className="font-medium">{selectedLeave.appliedOn}</p>
-        </div>
-        
-        <div className="space-y-1">
-          <Label className="text-muted-foreground block">Leave Date</Label>
-          <p className="font-medium">
-            {selectedLeave.startDate} – {selectedLeave.endDate}
-          </p>
-        </div>
-        
-        <div className="space-y-1">
-          <Label className="text-muted-foreground block">Days</Label>
-          <p className="font-medium">{selectedLeave.days}</p>
-        </div>
-        
-        <div className="space-y-1">
-          <Label className="text-muted-foreground block">Duration</Label>
-          <p className="font-medium">{selectedLeave.duration}</p>
-        </div>
-      </div>
-
-      {/* Row 2: Status Section */}
-      <div className="grid grid-cols-2 gap-4 items-start">
-        <div className="space-y-1">
-          <Label className="text-muted-foreground block">TL Status</Label>
-          <Badge
-            variant={
-              selectedLeave.tlStatus === "Approved"
-                ? "success"
-                : selectedLeave.tlStatus === "Rejected"
-                ? "destructive"
-                : "outline"
-            }
-          >
-            {selectedLeave.tlStatus}
-          </Badge>
-        </div>
-        
-        <div className="space-y-1">
-          <Label className="text-muted-foreground block">TL Clarification</Label>
-          <p className="text-gray-700">
-            {selectedLeave.tlClarification || "No clarification provided"}
-          </p>
-        </div>
-      </div>
-
-      {/* Row 3: Reason Section */}
-      <div className="space-y-1">
-        <Label className="text-muted-foreground block">Reason for Leave</Label>
-        <div className="p-3 bg-gray-50 rounded-md">
-          <p className="text-gray-700">{selectedLeave.reason}</p>
-        </div>
-      </div>
-
-      {/* Row 4: Approval Note Section */}
-      <div className="space-y-1">
-        <Label className="text-muted-foreground block">Approval Note</Label>
-        <div className="p-3 bg-gray-50 rounded-md">
-          <p className="text-gray-700">
-            {selectedLeave.approvalNote || "No approval note provided"}
-          </p>
-        </div>
-      </div>
+  {/* Row 1: Leave Type, Date of Application, Leave Date, Days */}
+  <div className="flex flex-wrap justify-between gap-3">
+    <div className="space-y-1 w-[22%] min-w-[160px]">
+      <Label className="text-muted-foreground block">Leave Type</Label>
+      <p className="font-medium">
+        {selectedLeave.type === "CL"
+          ? "Casual"
+          : selectedLeave.type === "SL"
+          ? "Sick"
+          : "Earned"}{" "}
+        Leave
+      </p>
     </div>
+
+    <div className="space-y-1 w-[22%] min-w-[160px] -ml-2">
+  <Label className="text-muted-foreground block">Date of Application</Label>
+  <p className="font-medium">{selectedLeave.appliedOn}</p>
+</div>
+
+<div className="space-y-1 w-[22%] min-w-[160px] -ml-2">
+  <Label className="text-muted-foreground block">Leave Date</Label>
+  <p className="font-medium">
+    {selectedLeave.startDate} – {selectedLeave.endDate}
+  </p>
+</div>
+
+    <div className="space-y-1 w-[22%] min-w-[160px]">
+      <Label className="text-muted-foreground block">Days</Label>
+      <p className="font-medium">{selectedLeave.days}</p>
+    </div>
+  </div>
+
+  {/* Row 2: Duration, TL Status, TL Clarification */}
+  <div className="flex flex-wrap justify-between gap-4 mt-4">
+    <div className="space-y-1 w-[30%] min-w-[160px]">
+      <Label className="text-muted-foreground block">Duration</Label>
+      <p className="font-medium">{selectedLeave.duration}</p>
+    </div>
+
+    <div className="space-y-1 w-[30%] min-w-[200px]">
+      <Label className="text-muted-foreground block">TL Status</Label>
+      <Badge
+        variant={
+          selectedLeave.tlStatus === "Approved"
+            ? "success"
+            : selectedLeave.tlStatus === "Rejected"
+            ? "destructive"
+            : "outline"
+        }
+      >
+        {selectedLeave.tlStatus}
+      </Badge>
+    </div>
+
+    <div className="space-y-1 w-[35%] min-w-[250px]">
+      <Label className="text-muted-foreground block">TL Clarification</Label>
+      <p className="text-gray-700">
+        {selectedLeave.tlClarification || "No clarification provided"}
+      </p>
+    </div>
+  </div>
+
+  {/* Row 3: Reason */}
+  <div className="space-y-1 mt-4">
+    <Label className="text-muted-foreground block">Reason for Leave</Label>
+    <div className="p-3 bg-gray-50 rounded-md">
+      <p className="text-gray-700">{selectedLeave.reason}</p>
+    </div>
+  </div>
+
+  {/* Row 4: Approval Note */}
+  <div className="space-y-1">
+    <Label className="text-muted-foreground block">Approval Note</Label>
+    <div className="p-3 bg-gray-50 rounded-md">
+      <p className="text-gray-700">
+        {selectedLeave.approvalNote || "No approval note provided"}
+      </p>
+    </div>
+  </div>
+
+</div>
+
+ 
   )}
 </EmployeeModal>
 
@@ -487,35 +494,53 @@ export default function LeavesView() {
   title={`Approve Leave for ${selectedLeave?.employeeName}`}
   isOpen={approveModalOpen}
   onOpenChange={setApproveModalOpen}
-  showFooter={false} // Since we're adding a custom footer
+  showFooter={false}
 >
   {selectedLeave && (
-    <div className="grid grid-cols-2 gap-4 py-4">
-      <div className="space-y-1">
-        <Label className="text-sm text-muted-foreground">Type</Label>
-        <p className="font-medium">
-          {selectedLeave.type === "CL" ? "Casual" : selectedLeave.type === "SL" ? "Sick" : "Earned"} Leave
-        </p>
+    <div className="space-y-6 py-4">
+      
+      {/* Row 1: Type, Date of Application, Leave Date */}
+      <div className="flex flex-wrap gap-6">
+        <div className="flex-1 min-w-[200px] space-y-1">
+          <Label className="text-sm text-muted-foreground block">Type</Label>
+          <p className="font-medium">
+            {selectedLeave.type === "CL"
+              ? "Casual"
+              : selectedLeave.type === "SL"
+              ? "Sick"
+              : "Earned"}{" "}
+            Leave
+          </p>
+        </div>
+
+        <div className="flex-1 min-w-[200px] space-y-1">
+          <Label className="text-sm text-muted-foreground block">Date of Application</Label>
+          <p className="font-medium">{selectedLeave.appliedOn}</p>
+        </div>
+
+        <div className="flex-1 min-w-[200px] space-y-1">
+          <Label className="text-sm text-muted-foreground block">Leave Date</Label>
+          <p className="font-medium">
+            {selectedLeave.startDate} - {selectedLeave.endDate}
+          </p>
+        </div>
       </div>
-      <div className="space-y-1">
-        <Label className="text-sm text-muted-foreground">Date of Application</Label>
-        <p className="font-medium">{selectedLeave.appliedOn}</p>
+
+      {/* Row 2: Number of Days, Leave Balance */}
+      <div className="flex flex-wrap gap-6 mt-3">
+        <div className="flex-1 min-w-[200px] space-y-1">
+          <Label className="text-sm text-muted-foreground block">Number of Days</Label>
+          <p className="font-medium">{selectedLeave.days}</p>
+        </div>
+
+        <div className="flex-1 min-w-[200px] space-y-1">
+          <Label className="text-sm text-muted-foreground block">Leave Balance</Label>
+          <p className="font-medium">{selectedLeave.leaveBalance}</p>
+        </div>
       </div>
-      <div className="space-y-1">
-        <Label className="text-sm text-muted-foreground">Leave Date</Label>
-        <p className="font-medium">
-          {selectedLeave.startDate} - {selectedLeave.endDate}
-        </p>
-      </div>
-      <div className="space-y-1">
-        <Label className="text-sm text-muted-foreground">Number of Days</Label>
-        <p className="font-medium">{selectedLeave.days}</p>
-      </div>
-      <div className="space-y-1">
-        <Label className="text-sm text-muted-foreground">Leave Balance</Label>
-        <p className="font-medium">{selectedLeave.leaveBalance}</p>
-      </div>
-      <div className="col-span-2 space-y-2">
+
+      {/* Approver Note */}
+      <div className="space-y-2">
         <Label htmlFor="approverNote">Approver Note</Label>
         <Textarea
           id="approverNote"
@@ -527,17 +552,11 @@ export default function LeavesView() {
       </div>
     </div>
   )}
-  <DialogFooter>
-    <Button variant="default" onClick={handleApproveConfirm}>
-      Confirm Approval
-    </Button>
-    <DialogClose asChild>
-      <Button type="button" variant="outline">
-        Cancel
-      </Button>
-    </DialogClose>
-  </DialogFooter>
+
+  {/* Footer Buttons (if any) */}
 </EmployeeModal>
+
+
 
       {/* Reject Leave Modal */}
       <Dialog open={rejectModalOpen} onOpenChange={setRejectModalOpen}>

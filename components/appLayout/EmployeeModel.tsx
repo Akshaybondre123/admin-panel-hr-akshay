@@ -46,10 +46,9 @@ export function EmployeeModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-     <DialogContent
-  className={`!w-full ${getMaxWidth()} mt-[-40px] rounded-lg shadow-lg overflow-y-auto`}
->
-
+      <DialogContent
+        className={`!w-full ${getMaxWidth()} mt-[-40px] rounded-lg shadow-lg overflow-y-auto`}
+      >
         <DialogHeader className="p-1 border-b">
           <DialogTitle className="text-lg font-semibold">{title}</DialogTitle>
           {description && (
@@ -60,7 +59,7 @@ export function EmployeeModal({
         <div className="p-4">{children}</div>
 
         {showFooter && (
-          <DialogFooter className="-mt-10 border-t pt-2">
+          <DialogFooter className="-mt-10 border-t pt-2 flex justify-start space-x-2 !justify-start">
             <Button type="button" onClick={onSubmit}>
               {submitLabel}
             </Button>
